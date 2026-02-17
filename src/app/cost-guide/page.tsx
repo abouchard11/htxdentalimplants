@@ -3,6 +3,7 @@ import Script from "next/script";
 import Link from "next/link";
 import { DollarSign, ArrowRight, Search, Phone, CheckCircle } from "lucide-react";
 import { procedures } from "@/data/procedures";
+import CostCalculator from "@/components/CostCalculator";
 
 export const metadata: Metadata = {
   title: "Dental Implant Cost in Houston TX (2025 Price Guide)",
@@ -215,8 +216,33 @@ export default function CostGuidePage() {
         </div>
       </section>
 
-      {/* Financing */}
+      {/* Calculator */}
       <section className="py-10 bg-muted">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+            <div>
+              <h2 className="text-xl font-heading font-bold text-secondary mb-3">
+                Estimate Your Dental Implant Cost
+              </h2>
+              <p className="text-sm text-gray-600 leading-relaxed mb-4">
+                Use our calculator to get an instant cost estimate for your
+                dental implant procedure in Houston. Select your procedure type,
+                number of teeth or arches, and insurance coverage to see
+                estimated costs and monthly financing options.
+              </p>
+              <p className="text-sm text-gray-600 leading-relaxed">
+                For a precise quote tailored to your specific needs, connect with
+                one of our top-rated Houston implant specialists for a free
+                consultation.
+              </p>
+            </div>
+            <CostCalculator />
+          </div>
+        </div>
+      </section>
+
+      {/* Financing */}
+      <section className="py-10">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <h2 className="text-xl font-heading font-bold text-secondary mb-6">
             Financing & Payment Options

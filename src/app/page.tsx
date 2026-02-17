@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Search, Shield, Star, Users, ArrowRight, MapPin, Phone } from "lucide-react";
 import DentistCard from "@/components/DentistCard";
 import ProcedureCard from "@/components/ProcedureCard";
+import CostCalculator from "@/components/CostCalculator";
 import { getFeaturedDentists } from "@/data/dentists";
 import { procedures } from "@/data/procedures";
 
@@ -12,14 +13,18 @@ const stats = [
 ];
 
 const areas = [
-  "Downtown Houston",
-  "Montrose",
-  "Medical Center",
-  "Katy",
-  "Sugar Land",
-  "Clear Lake",
-  "Memorial",
-  "Southwest Houston",
+  { name: "Downtown Houston", slug: "downtown" },
+  { name: "Montrose", slug: "montrose" },
+  { name: "Medical Center", slug: "medical-center" },
+  { name: "Katy", slug: "katy" },
+  { name: "Sugar Land", slug: "sugar-land" },
+  { name: "The Woodlands", slug: "the-woodlands" },
+  { name: "Clear Lake", slug: "clear-lake" },
+  { name: "Memorial", slug: "memorial" },
+  { name: "Cypress", slug: "cypress" },
+  { name: "Pearland", slug: "pearland" },
+  { name: "Galleria", slug: "galleria" },
+  { name: "Heights", slug: "heights" },
 ];
 
 export default function Home() {
@@ -157,8 +162,38 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Areas Served */}
+      {/* Cost Calculator */}
       <section className="py-16 bg-muted">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+            <div>
+              <h2 className="text-2xl sm:text-3xl font-heading font-bold text-secondary mb-3">
+                How Much Do Dental Implants Cost?
+              </h2>
+              <p className="text-gray-600 leading-relaxed mb-4">
+                Use our free calculator to estimate your dental implant cost in
+                Houston. Prices vary by procedure type, number of teeth, and
+                insurance coverage.
+              </p>
+              <p className="text-gray-600 leading-relaxed mb-6">
+                For a precise quote, connect with one of our verified Houston
+                implant specialists for a complimentary consultation.
+              </p>
+              <Link
+                href="/cost-guide"
+                className="inline-flex items-center gap-1 text-sm font-medium text-primary hover:text-primary-dark transition-colors"
+              >
+                View full cost guide
+                <ArrowRight className="h-4 w-4" />
+              </Link>
+            </div>
+            <CostCalculator />
+          </div>
+        </div>
+      </section>
+
+      {/* Areas Served */}
+      <section className="py-16">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-8">
             <h2 className="text-2xl sm:text-3xl font-heading font-bold text-secondary">
@@ -172,14 +207,23 @@ export default function Home() {
           <div className="flex flex-wrap justify-center gap-3">
             {areas.map((area) => (
               <Link
-                key={area}
-                href="/dentists"
+                key={area.slug}
+                href={`/locations/${area.slug}`}
                 className="inline-flex items-center gap-1.5 rounded-full border border-border bg-white px-4 py-2 text-sm text-gray-700 hover:border-primary hover:text-primary transition-colors"
               >
                 <MapPin className="h-3.5 w-3.5" />
-                {area}
+                {area.name}
               </Link>
             ))}
+          </div>
+          <div className="mt-6 text-center">
+            <Link
+              href="/locations"
+              className="inline-flex items-center gap-1 text-sm font-medium text-primary hover:text-primary-dark"
+            >
+              View all 25 service areas
+              <ArrowRight className="h-4 w-4" />
+            </Link>
           </div>
         </div>
       </section>
