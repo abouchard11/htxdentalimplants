@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { MapPin } from "lucide-react";
 import DentistCard from "@/components/DentistCard";
+import LeadCaptureForm from "@/components/LeadCaptureForm";
 import { dentists } from "@/data/dentists";
 
 export const metadata: Metadata = {
@@ -13,7 +14,6 @@ export const metadata: Metadata = {
 };
 
 export default function DentistsPage() {
-  // Sort: featured first, then by rating
   const sorted = [...dentists].sort((a, b) => {
     if (a.isFeatured && !b.isFeatured) return -1;
     if (!a.isFeatured && b.isFeatured) return 1;
@@ -33,19 +33,27 @@ export default function DentistsPage() {
             Dental Implant Dentists in Houston
           </h1>
           <p className="mt-3 text-gray-300 max-w-2xl">
-            {dentists.length} verified implant specialists serving the greater Houston area.
-            Compare ratings, specialties, and insurance accepted.
+            {dentists.length} verified implant specialists serving the greater
+            Houston area. Compare ratings, specialties, and insurance accepted.
           </p>
         </div>
       </section>
 
-      {/* Directory */}
+      {/* Directory + Lead Form */}
       <section className="py-10 bg-muted">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="grid gap-4">
-            {sorted.map((dentist) => (
-              <DentistCard key={dentist.id} dentist={dentist} />
-            ))}
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            {/* Dentist listings */}
+            <div className="lg:col-span-2 space-y-4">
+              {sorted.map((dentist) => (
+                <DentistCard key={dentist.id} dentist={dentist} />
+              ))}
+            </div>
+
+            {/* Sidebar with lead form */}
+            <div className="lg:sticky lg:top-20 lg:self-start">
+              <LeadCaptureForm source="dentists-directory" />
+            </div>
           </div>
         </div>
       </section>

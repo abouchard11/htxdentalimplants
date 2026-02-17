@@ -4,6 +4,7 @@ import Script from "next/script";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { GoogleTagManager, GTMNoScript } from "@/components/Analytics";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -90,6 +91,8 @@ export default function RootLayout({
         </Script>
       </head>
       <body className={`${inter.variable} ${plusJakarta.variable} antialiased`}>
+        <GTMNoScript />
+        <GoogleTagManager />
         <Header />
         <main>{children}</main>
         <Footer />
