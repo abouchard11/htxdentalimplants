@@ -7,8 +7,8 @@ import { Menu, X, Phone } from "lucide-react";
 const navigation = [
   { name: "Find a Dentist", href: "/dentists" },
   { name: "Procedures", href: "/procedures" },
+  { name: "Locations", href: "/locations" },
   { name: "Cost Guide", href: "/cost-guide" },
-  { name: "About", href: "/about" },
 ];
 
 export default function Header() {

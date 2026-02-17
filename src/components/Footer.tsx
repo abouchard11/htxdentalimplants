@@ -9,9 +9,20 @@ const footerLinks = {
     { name: "Bone Grafting", href: "/procedures/bone-grafting" },
     { name: "Full Mouth Reconstruction", href: "/procedures/full-mouth-reconstruction" },
   ],
+  locations: [
+    { name: "Katy", href: "/locations/katy" },
+    { name: "Sugar Land", href: "/locations/sugar-land" },
+    { name: "The Woodlands", href: "/locations/the-woodlands" },
+    { name: "Pearland", href: "/locations/pearland" },
+    { name: "Cypress", href: "/locations/cypress" },
+    { name: "Clear Lake", href: "/locations/clear-lake" },
+    { name: "Memorial", href: "/locations/memorial" },
+    { name: "View All Areas →", href: "/locations" },
+  ],
   resources: [
     { name: "Find a Dentist", href: "/dentists" },
     { name: "Cost Guide", href: "/cost-guide" },
+    { name: "Locations", href: "/locations" },
     { name: "About Us", href: "/about" },
   ],
 };
@@ -20,7 +31,7 @@ export default function Footer() {
   return (
     <footer className="bg-secondary text-white">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Brand */}
           <div>
             <div className="flex items-center gap-2 mb-4">
@@ -42,6 +53,25 @@ export default function Footer() {
             </h3>
             <ul className="space-y-2">
               {footerLinks.procedures.map((link) => (
+                <li key={link.href}>
+                  <Link
+                    href={link.href}
+                    className="text-sm text-gray-300 hover:text-white transition-colors"
+                  >
+                    {link.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Locations */}
+          <div>
+            <h3 className="text-sm font-semibold uppercase tracking-wider text-gray-400 mb-4">
+              Service Areas
+            </h3>
+            <ul className="space-y-2">
+              {footerLinks.locations.map((link) => (
                 <li key={link.href}>
                   <Link
                     href={link.href}
