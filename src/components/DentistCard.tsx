@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { Star, MapPin, CheckCircle, Phone } from "lucide-react";
+import { Star, MapPin, CheckCircle, Phone, Award } from "lucide-react";
 import type { Dentist } from "@/data/dentists";
 
 export default function DentistCard({ dentist }: { dentist: Dentist }) {
@@ -59,8 +59,23 @@ export default function DentistCard({ dentist }: { dentist: Dentist }) {
           {/* Description */}
           <p className="mt-2 text-sm text-gray-600 line-clamp-2">{dentist.description}</p>
 
+          {/* Differentiators */}
+          {dentist.differentiators && dentist.differentiators.length > 0 && (
+            <div className="mt-2 flex flex-wrap gap-1.5">
+              {dentist.differentiators.slice(0, 3).map((diff) => (
+                <span
+                  key={diff}
+                  className="inline-flex items-center gap-1 rounded-full bg-accent-light/40 px-2 py-0.5 text-xs font-medium text-amber-800"
+                >
+                  <Award className="h-3 w-3" />
+                  {diff}
+                </span>
+              ))}
+            </div>
+          )}
+
           {/* Tags */}
-          <div className="mt-3 flex flex-wrap gap-1.5">
+          <div className="mt-2 flex flex-wrap gap-1.5">
             {dentist.specialties.slice(0, 3).map((spec) => (
               <span
                 key={spec}

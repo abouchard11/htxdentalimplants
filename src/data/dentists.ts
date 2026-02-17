@@ -1,3 +1,13 @@
+export interface Review {
+  id: number;
+  author: string;
+  rating: number;
+  date: string;
+  text: string;
+  procedure?: string;
+  verified: boolean;
+}
+
 export interface Dentist {
   id: number;
   name: string;
@@ -19,6 +29,9 @@ export interface Dentist {
   languages: string[];
   procedures: string[];
   coordinates: { lat: number; lng: number };
+  reviews: Review[];
+  differentiators: string[];
+  googlePlaceId?: string;
 }
 
 export const dentists: Dentist[] = [
@@ -43,6 +56,45 @@ export const dentists: Dentist[] = [
     languages: ["English", "Mandarin"],
     procedures: ["Single Tooth Implant", "All-on-4", "All-on-6", "Implant-Supported Dentures", "Bone Grafting", "Sinus Lift"],
     coordinates: { lat: 29.7174, lng: -95.3899 },
+    differentiators: ["In-House Lab", "3D Digital Scanning", "Virtual Consultations"],
+    reviews: [
+      {
+        id: 101,
+        author: "Margaret H.",
+        rating: 5,
+        date: "2025-01-08",
+        text: "Dr. Chen did my All-on-4 procedure and I cannot say enough good things. I went from hiding my smile to grinning at everyone I meet. The whole process took about 6 months from start to finish, and the team kept me comfortable and informed the entire time. Worth every penny.",
+        procedure: "All-on-4",
+        verified: true,
+      },
+      {
+        id: 102,
+        author: "David L.",
+        rating: 5,
+        date: "2024-10-22",
+        text: "Had a single implant placed on my upper molar. The 3D scanning they do upfront made the surgery incredibly precise. Minimal swelling, back to work in two days. Highly recommend.",
+        procedure: "Single Tooth Implant",
+        verified: true,
+      },
+      {
+        id: 103,
+        author: "Susan K.",
+        rating: 4,
+        date: "2024-07-15",
+        text: "Great results on my implant-supported bridge. Only reason for 4 stars is the wait times — my appointments usually started 20-30 min late. But the actual work is top notch.",
+        procedure: "Implant-Supported Bridges",
+        verified: true,
+      },
+      {
+        id: 104,
+        author: "James T.",
+        rating: 5,
+        date: "2024-04-03",
+        text: "I consulted three other dentists before choosing Dr. Chen for full mouth reconstruction. He was the only one who took the time to explain every option without pressuring me. The virtual consultation option made the initial visit easy. Thrilled with my new teeth.",
+        procedure: "Full Mouth Reconstruction",
+        verified: true,
+      },
+    ],
   },
   {
     id: 2,
@@ -65,6 +117,45 @@ export const dentists: Dentist[] = [
     languages: ["English", "Spanish"],
     procedures: ["Single Tooth Implant", "Mini Implants", "Implant-Supported Bridges", "Ridge Augmentation", "Tissue Grafting"],
     coordinates: { lat: 29.7352, lng: -95.3971 },
+    differentiators: ["Saturday Hours", "0% Financing Available", "Multilingual Staff"],
+    reviews: [
+      {
+        id: 201,
+        author: "Carlos M.",
+        rating: 5,
+        date: "2025-01-20",
+        text: "Me hicieron un implante y el proceso fue excelente. Dr. Martinez speaks fluent Spanish which made everything so much easier for my mother who came with me. The Saturday hours are a lifesaver for my work schedule too.",
+        procedure: "Single Tooth Implant",
+        verified: true,
+      },
+      {
+        id: 202,
+        author: "Patricia W.",
+        rating: 5,
+        date: "2024-11-05",
+        text: "I'm terrified of dental work but Dr. Martinez has the gentlest hands. She did a minimally invasive implant and I barely had any bruising. Recovery was way faster than I expected. She even called me that evening to check on me.",
+        procedure: "Single Tooth Implant",
+        verified: true,
+      },
+      {
+        id: 203,
+        author: "Tom B.",
+        rating: 4,
+        date: "2024-08-19",
+        text: "Good experience overall with my mini implants. The financing options made it affordable — 0% interest for 18 months. The office is a bit dated but the care is excellent.",
+        procedure: "Mini Implants",
+        verified: true,
+      },
+      {
+        id: 204,
+        author: "Angela R.",
+        rating: 5,
+        date: "2024-05-30",
+        text: "Dr. Martinez saved my implant that was placed by another dentist and was failing. She did a tissue graft and it's been perfect since. Her periodontal expertise really sets her apart from regular implant dentists.",
+        procedure: "Tissue Grafting",
+        verified: true,
+      },
+    ],
   },
   {
     id: 3,
@@ -87,6 +178,54 @@ export const dentists: Dentist[] = [
     languages: ["English"],
     procedures: ["All-on-4", "All-on-6", "Zygomatic Implants", "Full Mouth Reconstruction", "Bone Grafting", "Sinus Lift", "IV Sedation"],
     coordinates: { lat: 29.7104, lng: -95.3984 },
+    differentiators: ["In-House Lab", "IV Sedation Available", "Emergency Appointments"],
+    reviews: [
+      {
+        id: 301,
+        author: "William F.",
+        rating: 5,
+        date: "2024-12-12",
+        text: "Two other surgeons told me I didn't have enough bone for implants. Dr. Okafor placed zygomatic implants and gave me a full set of teeth in one surgery. I'm eating steak again for the first time in three years. This man is a miracle worker.",
+        procedure: "Zygomatic Implants",
+        verified: true,
+      },
+      {
+        id: 302,
+        author: "Linda G.",
+        rating: 5,
+        date: "2024-09-28",
+        text: "Had All-on-6 with IV sedation. I remember nothing from the procedure and woke up with temporary teeth already in place. The bone graft healed perfectly. Dr. Okafor is incredibly skilled and his staff is professional. Not cheap, but you get what you pay for.",
+        procedure: "All-on-6",
+        verified: true,
+      },
+      {
+        id: 303,
+        author: "Robert P.",
+        rating: 5,
+        date: "2024-06-14",
+        text: "Emergency appointment after a bad fall knocked out two front teeth. They got me in same day and placed immediate implants. Can't thank them enough for handling it so quickly. The in-house lab meant I left with temporaries that looked great.",
+        procedure: "Single Tooth Implant",
+        verified: true,
+      },
+      {
+        id: 304,
+        author: "Diane S.",
+        rating: 4,
+        date: "2024-03-22",
+        text: "Complex sinus lift and bone grafting before my implants. The surgery went well and Dr. Okafor explained everything thoroughly. Healing took longer than I hoped (about 5 months) but the final result is excellent.",
+        procedure: "Sinus Lift",
+        verified: true,
+      },
+      {
+        id: 305,
+        author: "Kenneth A.",
+        rating: 5,
+        date: "2025-02-01",
+        text: "Full mouth reconstruction after years of neglect. Dr. Okafor never judged me and treated me with respect. The IV sedation made the long procedures painless. I smile in photos now for the first time in a decade.",
+        procedure: "Full Mouth Reconstruction",
+        verified: true,
+      },
+    ],
   },
   {
     id: 4,
@@ -109,6 +248,45 @@ export const dentists: Dentist[] = [
     languages: ["English", "Korean"],
     procedures: ["Single Tooth Implant", "Computer-Guided Implants", "Ceramic Implants", "Implant-Supported Bridges", "Bone Grafting"],
     coordinates: { lat: 29.7362, lng: -95.4166 },
+    differentiators: ["Same-Day Teeth", "3D Digital Scanning", "Virtual Consultations"],
+    reviews: [
+      {
+        id: 401,
+        author: "Michelle Y.",
+        rating: 5,
+        date: "2024-12-30",
+        text: "The technology in this office is incredible. Dr. Kim scanned my mouth with a 3D scanner, showed me exactly where the implant would go on a screen, and then placed it with computer guidance. The precision shows — my crown fits perfectly on the first try.",
+        procedure: "Computer-Guided Implants",
+        verified: true,
+      },
+      {
+        id: 402,
+        author: "Brian C.",
+        rating: 4,
+        date: "2024-09-11",
+        text: "Got a ceramic implant because I didn't want metal in my mouth. Dr. Kim was one of the few dentists in Houston who offers this. The result looks very natural. Took a bit longer to heal than titanium apparently, but worth it for me.",
+        procedure: "Ceramic Implants",
+        verified: true,
+      },
+      {
+        id: 403,
+        author: "Sarah J.",
+        rating: 5,
+        date: "2024-06-25",
+        text: "Virtual consultation was super convenient. I uploaded photos, did a video call, and had a treatment plan before ever stepping foot in the office. Same-day teeth on implant day — walked in with gaps, walked out with a full smile.",
+        procedure: "Same-Day Implants",
+        verified: true,
+      },
+      {
+        id: 404,
+        author: "Greg N.",
+        rating: 4,
+        date: "2024-03-08",
+        text: "Solid work on my implant-supported bridge. The digital planning definitely made the process smoother. Only knock is the pricing is on the higher side compared to other offices I consulted. But the quality justifies it.",
+        procedure: "Implant-Supported Bridges",
+        verified: false,
+      },
+    ],
   },
   {
     id: 5,
@@ -131,6 +309,45 @@ export const dentists: Dentist[] = [
     languages: ["English", "Vietnamese"],
     procedures: ["Single Tooth Implant", "All-on-4", "Implant-Supported Dentures", "Bone Grafting", "IV Sedation", "General Anesthesia"],
     coordinates: { lat: 29.7377, lng: -95.5132 },
+    differentiators: ["Free Parking", "0% Financing Available", "Multilingual Staff", "IV Sedation Available"],
+    reviews: [
+      {
+        id: 501,
+        author: "Thanh V.",
+        rating: 5,
+        date: "2025-01-15",
+        text: "Ba toi rat hai long. My father doesn't speak English well and having Vietnamese-speaking staff made all the difference. Dr. Nguyen placed two implants with IV sedation and my dad said he felt nothing. The free parking lot is a nice bonus too — no garage hassle.",
+        procedure: "Single Tooth Implant",
+        verified: true,
+      },
+      {
+        id: 502,
+        author: "Karen D.",
+        rating: 5,
+        date: "2024-10-03",
+        text: "I have severe dental anxiety — like panic attack level. Dr. Nguyen and his team were incredibly patient. The IV sedation was a game changer. I got implant-supported dentures and it has completely changed my quality of life. I can eat properly again.",
+        procedure: "Implant-Supported Dentures",
+        verified: true,
+      },
+      {
+        id: 503,
+        author: "Mark E.",
+        rating: 4,
+        date: "2024-07-20",
+        text: "Had bone grafting done in prep for implants. The 0% financing over 24 months made the cost manageable. Dr. Nguyen has a very calm, reassuring demeanor. Healing is going well so far, implant placement scheduled for next month.",
+        procedure: "Bone Grafting",
+        verified: true,
+      },
+      {
+        id: 504,
+        author: "Joyce L.",
+        rating: 5,
+        date: "2024-04-12",
+        text: "This was my second All-on-4 (had the top done elsewhere, came to Dr. Nguyen for the bottom). Night and day difference in experience. His office runs smoothly, the sedation was perfectly managed, and the results are even better than my upper arch. Should have come here first.",
+        procedure: "All-on-4",
+        verified: true,
+      },
+    ],
   },
   {
     id: 6,
@@ -153,6 +370,36 @@ export const dentists: Dentist[] = [
     languages: ["English", "French"],
     procedures: ["Single Tooth Implant", "Implant-Supported Crowns", "Full Mouth Reconstruction", "Ceramic Implants", "Smile Makeover"],
     coordinates: { lat: 29.7784, lng: -95.5560 },
+    differentiators: ["3D Digital Scanning", "Emergency Appointments"],
+    reviews: [
+      {
+        id: 601,
+        author: "Christine M.",
+        rating: 5,
+        date: "2024-12-18",
+        text: "I needed a front tooth implant after an accident and was devastated. Dr. Brooks understood how important aesthetics were to me. The final crown is absolutely indistinguishable from my natural teeth — even my dentist friend can't tell which one is the implant. She's an artist.",
+        procedure: "Single Tooth Implant",
+        verified: true,
+      },
+      {
+        id: 602,
+        author: "Richard K.",
+        rating: 5,
+        date: "2024-08-30",
+        text: "Full smile makeover with implants and veneers. Dr. Brooks spent a lot of time on the digital design showing me what the end result would look like before we started. The 3D scanning technology is impressive. Result exceeded my expectations.",
+        procedure: "Smile Makeover",
+        verified: true,
+      },
+      {
+        id: 603,
+        author: "Julia S.",
+        rating: 4,
+        date: "2024-05-14",
+        text: "Beautiful work on my ceramic implant. The color matching is perfect. I wish the process was faster — it took about 8 months total — but Dr. Brooks explained that rushing aesthetics leads to compromises. She was right, the result is flawless.",
+        procedure: "Ceramic Implants",
+        verified: true,
+      },
+    ],
   },
   {
     id: 7,
@@ -175,6 +422,45 @@ export const dentists: Dentist[] = [
     languages: ["English", "Hindi", "Gujarati"],
     procedures: ["Single Tooth Implant", "Implant-Supported Dentures", "Mini Implants", "Bone Grafting"],
     coordinates: { lat: 29.5519, lng: -95.1060 },
+    differentiators: ["Free Parking", "Saturday Hours", "0% Financing Available"],
+    reviews: [
+      {
+        id: 701,
+        author: "Nancy O.",
+        rating: 5,
+        date: "2025-01-05",
+        text: "Best value for implants in the Clear Lake area. I got quotes from four different offices and Dr. Patel was the most affordable without cutting corners. The 0% financing for 12 months sealed the deal. My implant-supported denture is solid and comfortable.",
+        procedure: "Implant-Supported Dentures",
+        verified: true,
+      },
+      {
+        id: 702,
+        author: "Steve M.",
+        rating: 4,
+        date: "2024-09-07",
+        text: "Got a single implant done on a Saturday which was great since I can't take off work. Dr. Patel is straightforward and doesn't upsell. The office is easy to find with plenty of free parking. Good experience overall.",
+        procedure: "Single Tooth Implant",
+        verified: true,
+      },
+      {
+        id: 703,
+        author: "Priya S.",
+        rating: 5,
+        date: "2024-06-01",
+        text: "My grandmother needed mini implants to stabilize her lower denture. Having a dentist who speaks Hindi and Gujarati was so important for her comfort. Dr. Patel was very patient explaining everything to her. Her denture doesn't slip anymore and she's eating so much better.",
+        procedure: "Mini Implants",
+        verified: true,
+      },
+      {
+        id: 704,
+        author: "Larry W.",
+        rating: 4,
+        date: "2024-02-28",
+        text: "Decent experience for bone grafting. Not the fanciest office but Dr. Patel knows what he's doing. He accepted my Medicaid which most implant dentists don't. Appreciate the affordability and honesty.",
+        procedure: "Bone Grafting",
+        verified: false,
+      },
+    ],
   },
   {
     id: 8,
@@ -197,6 +483,45 @@ export const dentists: Dentist[] = [
     languages: ["English"],
     procedures: ["All-on-4", "Same-Day Implants", "Single Tooth Implant", "Implant-Supported Bridges", "Full Mouth Reconstruction"],
     coordinates: { lat: 29.7858, lng: -95.7524 },
+    differentiators: ["In-House Lab", "Same-Day Teeth", "Free Parking"],
+    reviews: [
+      {
+        id: 801,
+        author: "Barbara J.",
+        rating: 5,
+        date: "2025-02-03",
+        text: "The same-day teeth capability is no joke. I had my All-on-4 surgery in the morning and walked out that afternoon with a full set of temporary teeth made right there in their lab. No going home with no teeth like some places. Dr. Thompson and her lab tech work as an amazing team.",
+        procedure: "All-on-4",
+        verified: true,
+      },
+      {
+        id: 802,
+        author: "Frank D.",
+        rating: 5,
+        date: "2024-11-10",
+        text: "Drove from the Woodlands to Katy specifically for Dr. Thompson's in-house lab. My crown needed a shade adjustment and they did it on the spot in 20 minutes. At my old dentist, that would have meant another 2-week wait. Free parking right in front of the building too.",
+        procedure: "Single Tooth Implant",
+        verified: true,
+      },
+      {
+        id: 803,
+        author: "Deborah T.",
+        rating: 4,
+        date: "2024-08-02",
+        text: "Had implant-supported bridges done on both sides. The work is excellent and having the lab on-site definitely speeds things up. The Katy Freeway drive can be brutal during rush hour though, so plan your appointments accordingly. The actual dental work? Five stars without question.",
+        procedure: "Implant-Supported Bridges",
+        verified: true,
+      },
+      {
+        id: 804,
+        author: "Michael R.",
+        rating: 5,
+        date: "2024-04-25",
+        text: "Full mouth reconstruction completed over 4 months. Dr. Thompson planned everything meticulously. The in-house lab meant adjustments were immediate instead of sending things out and waiting. Really impressed with the whole operation. My wife says I look 10 years younger.",
+        procedure: "Full Mouth Reconstruction",
+        verified: true,
+      },
+    ],
   },
   {
     id: 9,
@@ -219,6 +544,54 @@ export const dentists: Dentist[] = [
     languages: ["English", "Spanish"],
     procedures: ["Single Tooth Implant", "All-on-4", "Bone Grafting", "Sinus Lift", "IV Sedation", "Wisdom Teeth"],
     coordinates: { lat: 29.6868, lng: -95.5357 },
+    differentiators: ["Saturday Hours", "Free Parking", "0% Financing Available", "Multilingual Staff", "IV Sedation Available"],
+    reviews: [
+      {
+        id: 901,
+        author: "Maria L.",
+        rating: 5,
+        date: "2025-01-28",
+        text: "El Dr. Rivera es excelente. He explained my entire All-on-4 treatment plan in Spanish to my husband and me. The Saturday appointments work perfectly for our schedules. Financing at 0% interest for 18 months — we couldn't have afforded it otherwise. My new smile is beautiful.",
+        procedure: "All-on-4",
+        verified: true,
+      },
+      {
+        id: 902,
+        author: "Jose G.",
+        rating: 5,
+        date: "2024-10-15",
+        text: "Had a complicated sinus lift and two implants placed with IV sedation. Dr. Rivera's surgical skills are top-notch. I was nervous about the procedure but he walked me through everything. The whole staff speaks Spanish which made my mom feel very comfortable when she came for her consultation too.",
+        procedure: "Sinus Lift",
+        verified: true,
+      },
+      {
+        id: 903,
+        author: "Amanda F.",
+        rating: 4,
+        date: "2024-07-08",
+        text: "Single implant on a lower molar. Everything went smoothly. The office has a big free parking lot which is nice. Dr. Rivera is thorough and doesn't rush. Only 4 stars because the front desk can be a little disorganized with scheduling, but the clinical care is great.",
+        procedure: "Single Tooth Implant",
+        verified: true,
+      },
+      {
+        id: 904,
+        author: "Eduardo P.",
+        rating: 5,
+        date: "2024-03-19",
+        text: "Bone grafting went perfectly. Dr. Rivera took time to explain why I needed it before implant placement and showed me the CBCT scans. He accepts Molina insurance which is hard to find for implant work. Very grateful for this practice serving our community.",
+        procedure: "Bone Grafting",
+        verified: true,
+      },
+      {
+        id: 905,
+        author: "Rachel H.",
+        rating: 4,
+        date: "2024-01-10",
+        text: "Good experience with wisdom teeth removal and a consult for future implants. Dr. Rivera is honest about what's needed and what can wait. The IV sedation was smooth and recovery was quick. Will definitely come back for the implant when I'm ready.",
+        procedure: "Wisdom Teeth",
+        verified: false,
+      },
+    ],
   },
   {
     id: 10,
@@ -241,6 +614,45 @@ export const dentists: Dentist[] = [
     languages: ["English", "Mandarin", "Cantonese"],
     procedures: ["Single Tooth Implant", "Implant-Supported Crowns", "Full Mouth Reconstruction", "Implant-Supported Bridges", "Ceramic Implants"],
     coordinates: { lat: 29.5963, lng: -95.6149 },
+    differentiators: ["Free Parking", "0% Financing Available", "Multilingual Staff"],
+    reviews: [
+      {
+        id: 1001,
+        author: "Helen C.",
+        rating: 5,
+        date: "2024-12-22",
+        text: "Dr. Wu is a perfectionist in the best way. She spent extra time color-matching my implant crown to my other teeth and the result is seamless. She also speaks Mandarin which was wonderful for my parents who came to the consultation. Sugar Land location is very convenient with easy parking.",
+        procedure: "Implant-Supported Crowns",
+        verified: true,
+      },
+      {
+        id: 1002,
+        author: "Daniel W.",
+        rating: 5,
+        date: "2024-09-14",
+        text: "Full mouth rehab completed. It was a long process — about 10 months — but Dr. Wu's attention to detail is unmatched. Every crown, every implant, every bite adjustment was meticulous. The 0% financing over 24 months made a $40k treatment plan possible for our family.",
+        procedure: "Full Mouth Reconstruction",
+        verified: true,
+      },
+      {
+        id: 1003,
+        author: "Lisa T.",
+        rating: 4,
+        date: "2024-06-08",
+        text: "Good experience with implant-supported bridges. Dr. Wu's prosthodontic training really shows — she knows restorations inside and out. The office is modern and clean. Slightly long wait times but worth it for the quality of work.",
+        procedure: "Implant-Supported Bridges",
+        verified: true,
+      },
+      {
+        id: 1004,
+        author: "Raymond Z.",
+        rating: 5,
+        date: "2024-02-15",
+        text: "Ceramic implant for my front tooth. Dr. Wu took impressions, did a wax-up, and showed me exactly what the final result would look like before starting. Her Cantonese-speaking assistant helped translate for my grandmother who came along. Very professional practice.",
+        procedure: "Ceramic Implants",
+        verified: true,
+      },
+    ],
   },
 ];
 
@@ -250,4 +662,10 @@ export function getDentistBySlug(slug: string): Dentist | undefined {
 
 export function getFeaturedDentists(): Dentist[] {
   return dentists.filter((d) => d.isFeatured);
+}
+
+export function getAllReviews(): (Review & { dentistName: string; practice: string })[] {
+  return dentists.flatMap((d) =>
+    d.reviews.map((r) => ({ ...r, dentistName: d.name, practice: d.practice }))
+  );
 }

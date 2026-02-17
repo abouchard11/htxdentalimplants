@@ -3,8 +3,11 @@ import Script from "next/script";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { Star, MapPin, Phone, Globe, CheckCircle, Clock, Shield, Languages } from "lucide-react";
+import { Star, MapPin, Phone, Globe, CheckCircle, Clock, Shield, Languages, Award } from "lucide-react";
 import { dentists, getDentistBySlug } from "@/data/dentists";
+import ReviewWidget from "@/components/ReviewWidget";
+import GoogleMap from "@/components/GoogleMap";
+import LeadCaptureForm from "@/components/LeadCaptureForm";
 
 export function generateStaticParams() {
   return dentists.map((d) => ({ slug: d.slug }));
@@ -118,6 +121,22 @@ export default async function DentistProfile({
                   ({dentist.reviewCount} reviews)
                 </span>
               </div>
+
+              {/* Differentiator badges */}
+              {dentist.differentiators && dentist.differentiators.length > 0 && (
+                <div className="mt-3 flex flex-wrap gap-2">
+                  {dentist.differentiators.map((diff) => (
+                    <span
+                      key={diff}
+                      className="inline-flex items-center gap-1 rounded-full bg-accent/15 px-2.5 py-1 text-xs font-medium text-accent-light"
+                    >
+                      <Award className="h-3 w-3" />
+                      {diff}
+                    </span>
+                  ))}
+                </div>
+              )}
+
               <div className="mt-4 flex flex-wrap gap-3">
                 <a
                   href={`tel:${dentist.phone.replace(/[^+\d]/g, "")}`}
@@ -189,6 +208,32 @@ export default async function DentistProfile({
                   ))}
                 </div>
               </div>
+
+              {/* Reviews Widget */}
+              {dentist.reviews && dentist.reviews.length > 0 && (
+                <div>
+                  <h2 className="text-xl font-heading font-bold text-secondary mb-3">
+                    Patient Reviews
+                  </h2>
+                  <ReviewWidget
+                    reviews={dentist.reviews}
+                    dentistName={dentist.name}
+                    rating={dentist.rating}
+                    reviewCount={dentist.reviewCount}
+                  />
+                </div>
+              )}
+
+              {/* Google Map */}
+              <div>
+                <h2 className="text-xl font-heading font-bold text-secondary mb-3">
+                  Location
+                </h2>
+                <GoogleMap
+                  address={dentist.address}
+                  name={dentist.practice}
+                />
+              </div>
             </div>
 
             {/* Sidebar */}
@@ -235,6 +280,12 @@ export default async function DentistProfile({
                   ))}
                 </div>
               </div>
+
+              {/* Lead Form */}
+              <LeadCaptureForm
+                source={`dentist-${dentist.slug}`}
+                procedureInterest={dentist.procedures[0]}
+              />
 
               {/* CTA */}
               <div className="rounded-xl bg-primary p-5 text-center">

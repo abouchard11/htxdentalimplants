@@ -3,6 +3,7 @@ import { Search, Shield, Star, Users, ArrowRight, MapPin, Phone } from "lucide-r
 import DentistCard from "@/components/DentistCard";
 import ProcedureCard from "@/components/ProcedureCard";
 import CostCalculator from "@/components/CostCalculator";
+import TestimonialSection from "@/components/TestimonialSection";
 import { getFeaturedDentists } from "@/data/dentists";
 import { procedures } from "@/data/procedures";
 
@@ -161,6 +162,9 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* Patient Testimonials */}
+      <TestimonialSection />
 
       {/* Cost Calculator */}
       <section className="py-16 bg-muted">
