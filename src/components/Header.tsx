@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { Menu, X, Phone } from "lucide-react";
 import Logo from "./Logo";
+import { PHONE_DISPLAY, PHONE_E164 } from "@/lib/phone";
 
 const navigation = [
   { name: "Find a Dentist", href: "/dentists" },
@@ -40,11 +41,11 @@ export default function Header() {
           {/* CTA + mobile toggle */}
           <div className="flex items-center gap-3">
             <a
-              href="tel:+17135550000"
+              href={`tel:${PHONE_E164}`}
               className="hidden sm:flex items-center gap-1.5 text-sm font-medium text-primary hover:text-primary-dark transition-colors"
             >
               <Phone className="h-4 w-4" />
-              (713) 555-0000
+              {PHONE_DISPLAY}
             </a>
             {/* Primary CTA — "Get 3 Quotes" */}
             <Link
