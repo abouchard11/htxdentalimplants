@@ -32,6 +32,11 @@ export interface Dentist {
   reviews: Review[];
   differentiators: string[];
   googlePlaceId?: string;
+  serviceAreas: string[];
+  bookingUrl?: string;
+  trackingPhone?: string;
+  featuredTier?: "standard" | "premium" | "elite";
+  openingHours?: string;
 }
 
 export const dentists: Dentist[] = [
@@ -57,6 +62,9 @@ export const dentists: Dentist[] = [
     procedures: ["Single Tooth Implant", "All-on-4", "All-on-6", "Implant-Supported Dentures", "Bone Grafting", "Sinus Lift"],
     coordinates: { lat: 29.7174, lng: -95.3899 },
     differentiators: ["In-House Lab", "3D Digital Scanning", "Virtual Consultations"],
+    serviceAreas: ["midtown", "medical-center", "montrose", "heights", "downtown", "river-oaks"],
+    featuredTier: "elite",
+    openingHours: "Mon-Fri 8am-5pm",
     reviews: [
       {
         id: 101,
@@ -118,6 +126,9 @@ export const dentists: Dentist[] = [
     procedures: ["Single Tooth Implant", "Mini Implants", "Implant-Supported Bridges", "Ridge Augmentation", "Tissue Grafting"],
     coordinates: { lat: 29.7352, lng: -95.3971 },
     differentiators: ["Saturday Hours", "0% Financing Available", "Multilingual Staff"],
+    serviceAreas: ["montrose", "river-oaks", "galleria", "midtown", "west-university"],
+    featuredTier: "premium",
+    openingHours: "Mon-Sat 8am-5pm",
     reviews: [
       {
         id: 201,
@@ -179,6 +190,9 @@ export const dentists: Dentist[] = [
     procedures: ["All-on-4", "All-on-6", "Zygomatic Implants", "Full Mouth Reconstruction", "Bone Grafting", "Sinus Lift", "IV Sedation"],
     coordinates: { lat: 29.7104, lng: -95.3984 },
     differentiators: ["In-House Lab", "IV Sedation Available", "Emergency Appointments"],
+    serviceAreas: ["medical-center", "montrose", "midtown", "downtown", "heights"],
+    featuredTier: "elite",
+    openingHours: "Mon-Fri 7am-6pm",
     reviews: [
       {
         id: 301,
@@ -249,6 +263,9 @@ export const dentists: Dentist[] = [
     procedures: ["Single Tooth Implant", "Computer-Guided Implants", "Ceramic Implants", "Implant-Supported Bridges", "Bone Grafting"],
     coordinates: { lat: 29.7362, lng: -95.4166 },
     differentiators: ["Same-Day Teeth", "3D Digital Scanning", "Virtual Consultations"],
+    serviceAreas: ["river-oaks", "montrose", "galleria", "west-university", "bellaire"],
+    featuredTier: "standard",
+    openingHours: "Mon-Fri 9am-5pm",
     reviews: [
       {
         id: 401,
@@ -310,6 +327,9 @@ export const dentists: Dentist[] = [
     procedures: ["Single Tooth Implant", "All-on-4", "Implant-Supported Dentures", "Bone Grafting", "IV Sedation", "General Anesthesia"],
     coordinates: { lat: 29.7377, lng: -95.5132 },
     differentiators: ["Free Parking", "0% Financing Available", "Multilingual Staff", "IV Sedation Available"],
+    serviceAreas: ["galleria", "memorial", "river-oaks", "bellaire", "west-university"],
+    featuredTier: "standard",
+    openingHours: "Mon-Fri 8am-5pm, Sat 9am-2pm",
     reviews: [
       {
         id: 501,
@@ -371,6 +391,9 @@ export const dentists: Dentist[] = [
     procedures: ["Single Tooth Implant", "Implant-Supported Crowns", "Full Mouth Reconstruction", "Ceramic Implants", "Smile Makeover"],
     coordinates: { lat: 29.7784, lng: -95.5560 },
     differentiators: ["3D Digital Scanning", "Emergency Appointments"],
+    serviceAreas: ["memorial", "galleria", "katy", "river-oaks"],
+    featuredTier: "standard",
+    openingHours: "Mon-Fri 9am-6pm",
     reviews: [
       {
         id: 601,
@@ -423,6 +446,9 @@ export const dentists: Dentist[] = [
     procedures: ["Single Tooth Implant", "Implant-Supported Dentures", "Mini Implants", "Bone Grafting"],
     coordinates: { lat: 29.5519, lng: -95.1060 },
     differentiators: ["Free Parking", "Saturday Hours", "0% Financing Available"],
+    serviceAreas: ["clear-lake", "league-city", "friendswood", "pasadena", "pearland"],
+    featuredTier: "standard",
+    openingHours: "Mon-Sat 8am-5pm",
     reviews: [
       {
         id: 701,
@@ -484,6 +510,9 @@ export const dentists: Dentist[] = [
     procedures: ["All-on-4", "Same-Day Implants", "Single Tooth Implant", "Implant-Supported Bridges", "Full Mouth Reconstruction"],
     coordinates: { lat: 29.7858, lng: -95.7524 },
     differentiators: ["In-House Lab", "Same-Day Teeth", "Free Parking"],
+    serviceAreas: ["katy", "cypress", "memorial", "spring"],
+    featuredTier: "premium",
+    openingHours: "Mon-Fri 8am-6pm",
     reviews: [
       {
         id: 801,
@@ -545,6 +574,9 @@ export const dentists: Dentist[] = [
     procedures: ["Single Tooth Implant", "All-on-4", "Bone Grafting", "Sinus Lift", "IV Sedation", "Wisdom Teeth"],
     coordinates: { lat: 29.6868, lng: -95.5357 },
     differentiators: ["Saturday Hours", "Free Parking", "0% Financing Available", "Multilingual Staff", "IV Sedation Available"],
+    serviceAreas: ["missouri-city", "bellaire", "west-university", "midtown", "galleria"],
+    featuredTier: "standard",
+    openingHours: "Mon-Sat 8am-5pm",
     reviews: [
       {
         id: 901,
@@ -615,6 +647,9 @@ export const dentists: Dentist[] = [
     procedures: ["Single Tooth Implant", "Implant-Supported Crowns", "Full Mouth Reconstruction", "Implant-Supported Bridges", "Ceramic Implants"],
     coordinates: { lat: 29.5963, lng: -95.6149 },
     differentiators: ["Free Parking", "0% Financing Available", "Multilingual Staff"],
+    serviceAreas: ["sugar-land", "missouri-city", "richmond", "pearland", "friendswood"],
+    featuredTier: "standard",
+    openingHours: "Mon-Fri 9am-5pm",
     reviews: [
       {
         id: 1001,

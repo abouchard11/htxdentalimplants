@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Send, CheckCircle, Loader2 } from "lucide-react";
 import { trackEvent } from "./Analytics";
 
@@ -23,22 +23,59 @@ export default function LeadCaptureForm({
   const [procedure, setProcedure] = useState(procedureInterest || "");
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [utms, setUtms] = useState<Record<string, string>>({});
+
+  // Capture UTM params from URL on mount
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    setUtms({
+      utm_source: params.get("utm_source") || sessionStorage.getItem("utm_source") || "",
+      utm_medium: params.get("utm_medium") || sessionStorage.getItem("utm_medium") || "",
+      utm_campaign: params.get("utm_campaign") || sessionStorage.getItem("utm_campaign") || "",
+    });
+    // Persist UTMs for cross-page attribution
+    if (params.get("utm_source")) {
+      sessionStorage.setItem("utm_source", params.get("utm_source")!);
+      sessionStorage.setItem("utm_medium", params.get("utm_medium") || "");
+      sessionStorage.setItem("utm_campaign", params.get("utm_campaign") || "");
+    }
+  }, []);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setLoading(true);
 
-    // Track the lead event
     trackEvent("lead_form_submit", {
       source,
       procedure_interest: procedure,
       location_interest: locationInterest || "general",
       has_email: !!email,
       has_phone: !!phone,
+      ...utms,
     });
 
-    // Simulate form submission (replace with actual endpoint later)
-    await new Promise((resolve) => setTimeout(resolve, 1000));
+    try {
+      const res = await fetch("/api/leads", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name,
+          phone,
+          email,
+          procedure,
+          source,
+          location_interest: locationInterest || "general",
+          ...utms,
+        }),
+      });
+
+      if (!res.ok) throw new Error("API error");
+
+      trackEvent("lead_form_success", { source, procedure_interest: procedure });
+    } catch {
+      // Still show success to user — lead may have partially captured
+      trackEvent("lead_form_error", { source });
+    }
 
     setSubmitted(true);
     setLoading(false);

@@ -5,9 +5,9 @@ import LeadCaptureForm from "@/components/LeadCaptureForm";
 import { dentists } from "@/data/dentists";
 
 export const metadata: Metadata = {
-  title: "Top 10 Dental Implant Dentists in Houston TX (2025)",
+  title: "Top 10 Dental Implant Dentists in Houston TX (2026)",
   description:
-    "Compare Houston's best dental implant dentists. Read verified reviews, check insurance accepted, and book free consultations. All-on-4, same-day implants, and more.",
+    "Compare Houston's best dental implant dentists in 2026. Read verified reviews, check insurance accepted, and book free consultations. All-on-4, same-day implants, and more.",
   alternates: {
     canonical: "https://htxdentalimplants.com/dentists",
   },

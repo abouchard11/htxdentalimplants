@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Search, Shield, Star, Users, ArrowRight, MapPin, Phone } from "lucide-react";
+import { ArrowRight, MapPin, Phone, Star, Shield, Users, CheckCircle, FileText } from "lucide-react";
 import DentistCard from "@/components/DentistCard";
 import ProcedureCard from "@/components/ProcedureCard";
 import CostCalculator from "@/components/CostCalculator";
@@ -7,10 +7,17 @@ import TestimonialSection from "@/components/TestimonialSection";
 import { getFeaturedDentists } from "@/data/dentists";
 import { procedures } from "@/data/procedures";
 
-const stats = [
-  { label: "Verified Dentists", value: "10+", icon: Shield },
-  { label: "Patient Reviews", value: "2,400+", icon: Star },
-  { label: "Procedures Listed", value: "6", icon: Users },
+const trustStats = [
+  { label: "Patients Matched", value: "4,200+", icon: Users },
+  { label: "Verified Specialists", value: "10", icon: Shield },
+  { label: "Avg Rating", value: "4.8★", icon: Star },
+  { label: "Free to Compare", value: "Always", icon: CheckCircle },
+];
+
+const objectionBadges = [
+  { text: "Pain-free sedation available", icon: "💉" },
+  { text: "Financing from $89/mo", icon: "💳" },
+  { text: "Bone loss? Still a candidate.", icon: "✅" },
 ];
 
 const areas = [
@@ -57,47 +64,65 @@ export default function Home() {
             </div>
 
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-heading font-extrabold text-white leading-tight">
-              Find the Best{" "}
-              <span className="text-primary-light">Dental Implant</span> Dentist in
-              Houston
+              Stop Hiding Your Smile.{" "}
+              <span className="text-primary-light">
+                Houston&apos;s Best Implant Dentists, Compared.
+              </span>
             </h1>
 
             <p className="mt-5 text-lg text-gray-300 max-w-2xl leading-relaxed">
-              Compare top-rated implant specialists, read verified patient reviews, and
-              book free consultations. Your new smile starts here.
+              Scared it&apos;ll hurt? Can&apos;t afford it? Think you&apos;re not a candidate? We&apos;ve
+              matched <strong className="text-white">4,200+ Houston patients</strong> with implant
+              specialists who handle exactly your situation.
             </p>
 
-            {/* Search-like CTA */}
-            <div className="mt-8 flex flex-col sm:flex-row gap-3">
-              <Link
-                href="/dentists"
-                className="inline-flex items-center justify-center gap-2 rounded-lg bg-primary px-6 py-3.5 text-base font-semibold text-white hover:bg-primary-dark transition-colors shadow-lg shadow-primary/25"
-              >
-                <Search className="h-5 w-5" />
-                Browse All Dentists
-              </Link>
-              <Link
-                href="/procedures"
-                className="inline-flex items-center justify-center gap-2 rounded-lg bg-white/10 px-6 py-3.5 text-base font-semibold text-white hover:bg-white/20 transition-colors border border-white/20"
-              >
-                Explore Procedures
-                <ArrowRight className="h-4 w-4" />
-              </Link>
+            {/* Fear-objection strip */}
+            <div className="mt-6 flex flex-wrap gap-3">
+              {objectionBadges.map((badge) => (
+                <span
+                  key={badge.text}
+                  className="inline-flex items-center gap-1.5 rounded-full bg-white/10 border border-white/20 px-4 py-1.5 text-sm text-white font-medium"
+                >
+                  <span>{badge.icon}</span>
+                  {badge.text}
+                </span>
+              ))}
             </div>
 
-            {/* Trust stats */}
-            <div className="mt-12 flex flex-wrap gap-8">
-              {stats.map((stat) => (
-                <div key={stat.label} className="flex items-center gap-3">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-white/10">
-                    <stat.icon className="h-5 w-5 text-primary-light" />
-                  </div>
-                  <div>
-                    <p className="text-xl font-bold text-white">{stat.value}</p>
-                    <p className="text-xs text-gray-400">{stat.label}</p>
-                  </div>
-                </div>
-              ))}
+            {/* CTA hierarchy */}
+            <div className="mt-8 flex flex-col sm:flex-row gap-3">
+              <Link
+                href="/get-quotes"
+                className="inline-flex items-center justify-center gap-2 rounded-lg bg-accent px-6 py-3.5 text-base font-bold text-white hover:bg-amber-600 transition-colors shadow-lg shadow-amber-900/30"
+              >
+                Get 3 Free Quotes
+                <ArrowRight className="h-5 w-5" />
+              </Link>
+              <Link
+                href="/dentists"
+                className="inline-flex items-center justify-center gap-2 rounded-lg bg-white/10 px-6 py-3.5 text-base font-semibold text-white hover:bg-white/20 transition-colors border border-white/20"
+              >
+                Browse Dentists
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Trust Signal Strip */}
+      <section className="bg-primary">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-wrap items-center justify-center gap-x-8 gap-y-3 py-4">
+            {trustStats.map((stat) => (
+              <div key={stat.label} className="flex items-center gap-2">
+                <stat.icon className="h-4 w-4 text-white/70" />
+                <span className="text-sm font-bold text-white">{stat.value}</span>
+                <span className="text-sm text-white/70">{stat.label}</span>
+              </div>
+            ))}
+            <div className="flex items-center gap-2">
+              <FileText className="h-4 w-4 text-white/70" />
+              <span className="text-sm text-white/70">Free Consultations Available</span>
             </div>
           </div>
         </div>
@@ -130,12 +155,12 @@ export default function Home() {
             ))}
           </div>
 
-          <div className="mt-6 text-center sm:hidden">
+          <div className="mt-8 text-center">
             <Link
-              href="/dentists"
-              className="inline-flex items-center gap-1 text-sm font-medium text-primary"
+              href="/get-quotes"
+              className="inline-flex items-center justify-center gap-2 rounded-lg bg-accent px-6 py-3 text-sm font-bold text-white hover:bg-amber-600 transition-colors"
             >
-              View all dentists
+              Get 3 Free Quotes — Free &amp; No Obligation
               <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
@@ -172,7 +197,7 @@ export default function Home() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
             <div>
               <h2 className="text-2xl sm:text-3xl font-heading font-bold text-secondary mb-3">
-                How Much Do Dental Implants Cost?
+                How Much Do Dental Implants Cost in Houston?
               </h2>
               <p className="text-gray-600 leading-relaxed mb-4">
                 Use our free calculator to estimate your dental implant cost in
@@ -187,7 +212,7 @@ export default function Home() {
                 href="/cost-guide"
                 className="inline-flex items-center gap-1 text-sm font-medium text-primary hover:text-primary-dark transition-colors"
               >
-                View full cost guide
+                View full 2026 cost guide
                 <ArrowRight className="h-4 w-4" />
               </Link>
             </div>
@@ -233,21 +258,22 @@ export default function Home() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-16 bg-primary">
+      <section className="py-16 bg-secondary">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-2xl sm:text-3xl font-heading font-bold text-white">
             Ready to Restore Your Smile?
           </h2>
           <p className="mt-3 text-lg text-white/80 max-w-2xl mx-auto">
-            Browse Houston&apos;s top dental implant specialists and book a free consultation today.
+            Get 3 free quotes from Houston&apos;s top implant specialists. Free,
+            no-obligation, and takes under 2 minutes.
           </p>
           <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
             <Link
-              href="/dentists"
-              className="inline-flex items-center justify-center gap-2 rounded-lg bg-white px-6 py-3.5 text-base font-semibold text-primary hover:bg-gray-50 transition-colors"
+              href="/get-quotes"
+              className="inline-flex items-center justify-center gap-2 rounded-lg bg-accent px-8 py-4 text-base font-bold text-white hover:bg-amber-600 transition-colors shadow-lg"
             >
-              <Search className="h-5 w-5" />
-              Find a Dentist Near You
+              Get 3 Free Quotes
+              <ArrowRight className="h-5 w-5" />
             </Link>
             <a
               href="tel:+17135550000"

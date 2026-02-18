@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import { Menu, X, Phone } from "lucide-react";
+import Logo from "./Logo";
 
 const navigation = [
   { name: "Find a Dentist", href: "/dentists" },
@@ -20,14 +21,7 @@ export default function Header() {
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2">
-            <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary text-white font-bold text-sm">
-              HTX
-            </div>
-            <div className="hidden sm:block">
-              <span className="text-lg font-heading font-bold text-secondary">
-                HTX Dental Implants
-              </span>
-            </div>
+            <Logo size="sm" />
           </Link>
 
           {/* Desktop nav */}
@@ -52,11 +46,12 @@ export default function Header() {
               <Phone className="h-4 w-4" />
               (713) 555-0000
             </a>
+            {/* Primary CTA — "Get 3 Quotes" */}
             <Link
-              href="/dentists"
-              className="hidden md:inline-flex items-center justify-center rounded-lg bg-primary px-4 py-2 text-sm font-medium text-white hover:bg-primary-dark transition-colors"
+              href="/get-quotes"
+              className="hidden md:inline-flex items-center justify-center rounded-lg bg-accent px-4 py-2 text-sm font-semibold text-white hover:bg-amber-600 transition-colors shadow-sm"
             >
-              Find a Dentist
+              Get 3 Quotes
             </Link>
             <button
               className="md:hidden p-2 text-gray-600"
@@ -83,11 +78,18 @@ export default function Header() {
                 </Link>
               ))}
               <Link
-                href="/dentists"
-                className="mt-2 inline-flex items-center justify-center rounded-lg bg-primary px-4 py-2.5 text-sm font-medium text-white"
+                href="/get-quotes"
+                className="mt-2 inline-flex items-center justify-center rounded-lg bg-accent px-4 py-2.5 text-sm font-semibold text-white"
                 onClick={() => setMobileOpen(false)}
               >
-                Find a Dentist
+                Get 3 Free Quotes
+              </Link>
+              <Link
+                href="/dentists"
+                className="inline-flex items-center justify-center rounded-lg border border-primary px-4 py-2.5 text-sm font-semibold text-primary"
+                onClick={() => setMobileOpen(false)}
+              >
+                Browse Dentists
               </Link>
             </nav>
           </div>

@@ -23,7 +23,7 @@ export async function generateMetadata({
   if (!location) return {};
 
   return {
-    title: `Best Dental Implant Dentists in ${location.name} TX (2025)`,
+    title: `Dental Implants in ${location.name} TX 2026 | Compare Top Dentists & Cost`,
     description: `Find top-rated dental implant specialists in ${location.name}, Texas. Compare dentists, read reviews, check insurance, and book free consultations for All-on-4, single implants, and more.`,
     alternates: {
       canonical: `https://htxdentalimplants.com/locations/${slug}`,
@@ -44,9 +44,13 @@ export default async function LocationPage({
   const location = getLocationBySlug(slug);
   if (!location) notFound();
 
-  // Sort dentists by proximity (simplified — closest first by rating for now)
-  const sorted = [...dentists].sort((a, b) => b.rating - a.rating);
-  const topDentists = sorted.slice(0, 5);
+  // Filter dentists by serviceAreas geo match — local ranking factor
+  const geoMatched = dentists.filter((d) => d.serviceAreas?.includes(slug));
+  // Fall back to top-rated if no geo match (e.g. less-covered areas)
+  const topDentists =
+    geoMatched.length >= 2
+      ? geoMatched.sort((a, b) => b.rating - a.rating).slice(0, 5)
+      : [...dentists].sort((a, b) => b.rating - a.rating).slice(0, 5);
 
   const schema = JSON.stringify({
     "@context": "https://schema.org",

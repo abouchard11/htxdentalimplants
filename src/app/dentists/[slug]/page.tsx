@@ -22,14 +22,16 @@ export async function generateMetadata({
   const dentist = getDentistBySlug(slug);
   if (!dentist) return {};
 
+  const city = dentist.address.split(",")[1]?.trim() || "Houston";
+
   return {
-    title: `${dentist.name} - ${dentist.practice} | Houston Dental Implants`,
-    description: `${dentist.name} at ${dentist.practice}. ${dentist.description} ${dentist.rating} stars from ${dentist.reviewCount} reviews. Book a free consultation.`,
+    title: `${dentist.name} — Dental Implants ${city} TX | ${dentist.rating}★ (${dentist.reviewCount} Reviews)`,
+    description: `${dentist.name} at ${dentist.practice} in ${city}, TX. ${dentist.description} ${dentist.rating}★ from ${dentist.reviewCount} verified reviews. Book a free consultation.`,
     alternates: {
       canonical: `https://htxdentalimplants.com/dentists/${slug}`,
     },
     openGraph: {
-      title: `${dentist.name} - ${dentist.practice}`,
+      title: `${dentist.name} — ${dentist.practice} | ${dentist.rating}★`,
       description: dentist.description,
       images: [{ url: dentist.imageUrl, width: 400, height: 400 }],
     },
@@ -45,18 +47,30 @@ export default async function DentistProfile({
   const dentist = getDentistBySlug(slug);
   if (!dentist) notFound();
 
-  const schema = JSON.stringify({
+  // BreadcrumbList schema
+  const breadcrumbSchema = JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: "https://htxdentalimplants.com" },
+      { "@type": "ListItem", position: 2, name: "Dentists", item: "https://htxdentalimplants.com/dentists" },
+      { "@type": "ListItem", position: 3, name: dentist.name, item: `https://htxdentalimplants.com/dentists/${dentist.slug}` },
+    ],
+  });
+
+  // Full Dentist schema with Review nodes for SERP star ratings
+  const dentistSchema = JSON.stringify({
     "@context": "https://schema.org",
     "@type": "Dentist",
     name: dentist.name,
     description: dentist.description,
     image: dentist.imageUrl,
-    telephone: dentist.phone,
+    telephone: dentist.trackingPhone ?? dentist.phone,
     url: `https://htxdentalimplants.com/dentists/${dentist.slug}`,
     address: {
       "@type": "PostalAddress",
       streetAddress: dentist.address.split(",")[0],
-      addressLocality: "Houston",
+      addressLocality: dentist.address.split(",")[1]?.trim() || "Houston",
       addressRegion: "TX",
       addressCountry: "US",
     },
@@ -65,27 +79,56 @@ export default async function DentistProfile({
       latitude: dentist.coordinates.lat,
       longitude: dentist.coordinates.lng,
     },
+    openingHours: dentist.openingHours ?? "Mo-Fr 09:00-17:00",
+    priceRange: "$$-$$$",
     aggregateRating: {
       "@type": "AggregateRating",
       ratingValue: dentist.rating,
       reviewCount: dentist.reviewCount,
+      bestRating: 5,
+      worstRating: 1,
     },
+    review: dentist.reviews.map((r) => ({
+      "@type": "Review",
+      author: { "@type": "Person", name: r.author },
+      datePublished: r.date,
+      reviewRating: {
+        "@type": "Rating",
+        ratingValue: r.rating,
+        bestRating: 5,
+        worstRating: 1,
+      },
+      reviewBody: r.text,
+    })),
     medicalSpecialty: "Dental Implants",
     availableService: dentist.procedures.map((p) => ({
       "@type": "MedicalProcedure",
       name: p,
     })),
+    ...(dentist.bookingUrl && { potentialAction: { "@type": "ReserveAction", target: dentist.bookingUrl } }),
   });
 
   return (
     <>
+      <Script id={`schema-breadcrumb-${dentist.slug}`} type="application/ld+json" strategy="afterInteractive">
+        {breadcrumbSchema}
+      </Script>
       <Script id={`schema-dentist-${dentist.slug}`} type="application/ld+json" strategy="afterInteractive">
-        {schema}
+        {dentistSchema}
       </Script>
 
       {/* Header */}
       <section className="bg-secondary py-10">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          {/* Breadcrumb */}
+          <nav className="text-xs text-gray-400 mb-4 flex items-center gap-1">
+            <Link href="/" className="hover:text-primary-light">Home</Link>
+            <span>/</span>
+            <Link href="/dentists" className="hover:text-primary-light">Dentists</Link>
+            <span>/</span>
+            <span className="text-primary-light">{dentist.name}</span>
+          </nav>
+
           <div className="flex flex-col sm:flex-row gap-6 items-start">
             <Image
               src={dentist.imageUrl}
@@ -102,6 +145,11 @@ export default async function DentistProfile({
                 </h1>
                 {dentist.isVerified && (
                   <CheckCircle className="h-5 w-5 text-primary-light" />
+                )}
+                {dentist.featuredTier === "elite" && (
+                  <span className="rounded-full bg-accent/20 px-2 py-0.5 text-xs font-bold text-accent">
+                    ELITE
+                  </span>
                 )}
               </div>
               <p className="text-gray-300 mt-1">{dentist.practice}</p>
@@ -122,7 +170,6 @@ export default async function DentistProfile({
                 </span>
               </div>
 
-              {/* Differentiator badges */}
               {dentist.differentiators && dentist.differentiators.length > 0 && (
                 <div className="mt-3 flex flex-wrap gap-2">
                   {dentist.differentiators.map((diff) => (
@@ -139,11 +186,11 @@ export default async function DentistProfile({
 
               <div className="mt-4 flex flex-wrap gap-3">
                 <a
-                  href={`tel:${dentist.phone.replace(/[^+\d]/g, "")}`}
+                  href={`tel:${(dentist.trackingPhone ?? dentist.phone).replace(/[^+\d]/g, "")}`}
                   className="inline-flex items-center gap-1.5 rounded-lg bg-primary px-4 py-2 text-sm font-medium text-white hover:bg-primary-dark transition-colors"
                 >
                   <Phone className="h-4 w-4" />
-                  {dentist.phone}
+                  {dentist.trackingPhone ?? dentist.phone}
                 </a>
                 <a
                   href={dentist.website}
@@ -166,7 +213,6 @@ export default async function DentistProfile({
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             {/* Main content */}
             <div className="lg:col-span-2 space-y-8">
-              {/* About */}
               <div>
                 <h2 className="text-xl font-heading font-bold text-secondary mb-3">
                   About {dentist.name}
@@ -174,7 +220,6 @@ export default async function DentistProfile({
                 <p className="text-gray-600 leading-relaxed">{dentist.bio}</p>
               </div>
 
-              {/* Specialties */}
               <div>
                 <h2 className="text-xl font-heading font-bold text-secondary mb-3">
                   Specialties
@@ -191,7 +236,6 @@ export default async function DentistProfile({
                 </div>
               </div>
 
-              {/* Procedures */}
               <div>
                 <h2 className="text-xl font-heading font-bold text-secondary mb-3">
                   Procedures Offered
@@ -209,7 +253,6 @@ export default async function DentistProfile({
                 </div>
               </div>
 
-              {/* Reviews Widget */}
               {dentist.reviews && dentist.reviews.length > 0 && (
                 <div>
                   <h2 className="text-xl font-heading font-bold text-secondary mb-3">
@@ -224,21 +267,16 @@ export default async function DentistProfile({
                 </div>
               )}
 
-              {/* Google Map */}
               <div>
                 <h2 className="text-xl font-heading font-bold text-secondary mb-3">
                   Location
                 </h2>
-                <GoogleMap
-                  address={dentist.address}
-                  name={dentist.practice}
-                />
+                <GoogleMap address={dentist.address} name={dentist.practice} />
               </div>
             </div>
 
             {/* Sidebar */}
             <div className="space-y-6">
-              {/* Quick info card */}
               <div className="rounded-xl border border-border bg-white p-5 space-y-4">
                 <h3 className="text-sm font-semibold uppercase tracking-wider text-gray-500">
                   Quick Info
@@ -254,6 +292,12 @@ export default async function DentistProfile({
                       {dentist.yearsExperience} years experience
                     </span>
                   </div>
+                  {dentist.openingHours && (
+                    <div className="flex items-center gap-3">
+                      <Clock className="h-4 w-4 text-gray-400 shrink-0" />
+                      <span className="text-sm text-gray-700">{dentist.openingHours}</span>
+                    </div>
+                  )}
                   <div className="flex items-start gap-3">
                     <Languages className="h-4 w-4 text-gray-400 mt-0.5 shrink-0" />
                     <span className="text-sm text-gray-700">
@@ -263,7 +307,6 @@ export default async function DentistProfile({
                 </div>
               </div>
 
-              {/* Insurance */}
               <div className="rounded-xl border border-border bg-white p-5">
                 <h3 className="text-sm font-semibold uppercase tracking-wider text-gray-500 mb-3">
                   Insurance Accepted
@@ -281,19 +324,17 @@ export default async function DentistProfile({
                 </div>
               </div>
 
-              {/* Lead Form */}
               <LeadCaptureForm
                 source={`dentist-${dentist.slug}`}
                 procedureInterest={dentist.procedures[0]}
               />
 
-              {/* CTA */}
               <div className="rounded-xl bg-primary p-5 text-center">
                 <p className="text-white font-medium mb-3">
                   Book a Free Consultation
                 </p>
                 <a
-                  href={`tel:${dentist.phone.replace(/[^+\d]/g, "")}`}
+                  href={`tel:${(dentist.trackingPhone ?? dentist.phone).replace(/[^+\d]/g, "")}`}
                   className="inline-flex items-center justify-center gap-2 rounded-lg bg-white px-5 py-2.5 text-sm font-semibold text-primary hover:bg-gray-50 transition-colors w-full"
                 >
                   <Phone className="h-4 w-4" />
@@ -303,7 +344,6 @@ export default async function DentistProfile({
             </div>
           </div>
 
-          {/* Back link */}
           <div className="mt-10 pt-6 border-t border-border">
             <Link
               href="/dentists"

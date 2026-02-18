@@ -6,9 +6,9 @@ import { procedures } from "@/data/procedures";
 import CostCalculator from "@/components/CostCalculator";
 
 export const metadata: Metadata = {
-  title: "Dental Implant Cost in Houston TX (2025 Price Guide)",
+  title: "Dental Implant Cost in Houston TX (2026 Price Guide)",
   description:
-    "How much do dental implants cost in Houston? Single implants $1,500-$6,000, All-on-4 $18,000-$35,000. Compare costs, insurance coverage, financing options, and find affordable providers.",
+    "How much do dental implants cost in Houston in 2026? Single implants $1,500-$6,000, All-on-4 $18,000-$35,000. Compare costs, insurance coverage, financing options, and find affordable providers.",
   alternates: {
     canonical: "https://htxdentalimplants.com/cost-guide",
   },

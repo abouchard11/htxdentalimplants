@@ -30,7 +30,7 @@ export async function generateMetadata({
   if (!procedure) return {};
 
   return {
-    title: procedure.metaTitle,
+    title: `${procedure.name} Houston TX 2026 | Cost, Best Dentists & Free Quotes`,
     description: procedure.metaDescription,
     alternates: {
       canonical: `https://htxdentalimplants.com/procedures/${slug}`,
@@ -79,21 +79,48 @@ export default async function ProcedurePage({
     url: `https://htxdentalimplants.com/procedures/${slug}`,
   });
 
+  const howToSchema = JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    name: `How ${procedure.name} Works: Step-by-Step`,
+    description: procedure.detailedDescription,
+    totalTime: procedure.recoveryTime,
+    estimatedCost: {
+      "@type": "MonetaryAmount",
+      currency: "USD",
+      value: procedure.priceRange,
+    },
+    step: procedure.procedureSteps.map((step, i) => ({
+      "@type": "HowToStep",
+      position: i + 1,
+      name: step.split(":")[0],
+      text: step,
+    })),
+  });
+
+  const breadcrumbSchema = JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: "https://htxdentalimplants.com" },
+      { "@type": "ListItem", position: 2, name: "Procedures", item: "https://htxdentalimplants.com/procedures" },
+      { "@type": "ListItem", position: 3, name: procedure.name, item: `https://htxdentalimplants.com/procedures/${slug}` },
+    ],
+  });
+
   return (
     <>
-      <Script
-        id={`schema-faq-${slug}`}
-        type="application/ld+json"
-        strategy="afterInteractive"
-      >
+      <Script id={`schema-breadcrumb-${slug}`} type="application/ld+json" strategy="afterInteractive">
+        {breadcrumbSchema}
+      </Script>
+      <Script id={`schema-faq-${slug}`} type="application/ld+json" strategy="afterInteractive">
         {faqSchema}
       </Script>
-      <Script
-        id={`schema-procedure-${slug}`}
-        type="application/ld+json"
-        strategy="afterInteractive"
-      >
+      <Script id={`schema-procedure-${slug}`} type="application/ld+json" strategy="afterInteractive">
         {medicalSchema}
+      </Script>
+      <Script id={`schema-howto-${slug}`} type="application/ld+json" strategy="afterInteractive">
+        {howToSchema}
       </Script>
 
       {/* Hero */}

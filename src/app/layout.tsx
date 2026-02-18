@@ -4,6 +4,7 @@ import Script from "next/script";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import MobileUrgencyBar from "@/components/MobileUrgencyBar";
 import { GoogleTagManager, GTMNoScript } from "@/components/Analytics";
 
 const inter = Inter({
@@ -21,25 +22,25 @@ const plusJakarta = Plus_Jakarta_Sans({
 export const metadata: Metadata = {
   metadataBase: new URL("https://htxdentalimplants.com"),
   title: {
-    default: "Best Dental Implant Dentists in Houston TX | HTX Dental Implants",
+    default: "Dental Implants Houston TX | HTX Dental Implants Network 2026",
     template: "%s | HTX Dental Implants",
   },
   description:
-    "Find the top-rated dental implant specialists in Houston, Texas. Compare dentists, read reviews, and book free consultations for All-on-4, single tooth implants, and more.",
+    "Houston's Trusted Implant Network. Find top-rated dental implant specialists in Houston, TX. Compare dentists, read verified reviews, and book free consultations for All-on-4, single tooth implants, and more. 4,200+ patients matched.",
   openGraph: {
     type: "website",
     locale: "en_US",
     url: "https://htxdentalimplants.com",
     siteName: "HTX Dental Implants",
-    title: "Best Dental Implant Dentists in Houston TX",
+    title: "Dental Implants Houston TX | HTX Dental Implants Network 2026",
     description:
-      "Find the top-rated dental implant specialists in Houston, Texas. Compare dentists, read reviews, and book free consultations.",
+      "Houston's Trusted Implant Network. Compare 10 verified implant specialists, read reviews, and book free consultations. Find Your Dentist. Compare. Save. Smile.",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Best Dental Implant Dentists in Houston TX",
+    title: "Dental Implants Houston TX | HTX Dental Implants 2026",
     description:
-      "Find the top-rated dental implant specialists in Houston. Compare dentists, read reviews, and book free consultations.",
+      "Houston's Trusted Implant Network. Compare top implant dentists, read reviews, and book free consultations.",
   },
   robots: {
     index: true,
@@ -59,19 +60,47 @@ export const metadata: Metadata = {
 
 const schemaMarkup = JSON.stringify({
   "@context": "https://schema.org",
-  "@type": "WebSite",
-  name: "HTX Dental Implants",
-  url: "https://htxdentalimplants.com",
-  description:
-    "Houston's premier dental implant directory. Find top-rated implant specialists, compare prices, and book free consultations.",
-  potentialAction: {
-    "@type": "SearchAction",
-    target: {
-      "@type": "EntryPoint",
-      urlTemplate: "https://htxdentalimplants.com/dentists?q={search_term_string}",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": "https://htxdentalimplants.com/#website",
+      name: "HTX Dental Implants",
+      url: "https://htxdentalimplants.com",
+      description: "Houston's Trusted Implant Network — find, compare, and book top dental implant specialists.",
+      potentialAction: {
+        "@type": "SearchAction",
+        target: {
+          "@type": "EntryPoint",
+          urlTemplate: "https://htxdentalimplants.com/dentists?q={search_term_string}",
+        },
+        "query-input": "required name=search_term_string",
+      },
     },
-    "query-input": "required name=search_term_string",
-  },
+    {
+      "@type": "MedicalOrganization",
+      "@id": "https://htxdentalimplants.com/#organization",
+      name: "HTX Dental Implants",
+      url: "https://htxdentalimplants.com",
+      logo: "https://htxdentalimplants.com/logo.svg",
+      description: "Houston's premier dental implant directory. Find top-rated implant specialists, compare prices, and book free consultations.",
+      medicalSpecialty: "Dentistry",
+      areaServed: {
+        "@type": "City",
+        name: "Houston",
+        containedInPlace: {
+          "@type": "State",
+          name: "Texas",
+        },
+      },
+      contactPoint: {
+        "@type": "ContactPoint",
+        telephone: "+1-713-555-0000",
+        contactType: "customer service",
+        areaServed: "Houston, TX",
+        availableLanguage: ["English", "Spanish"],
+      },
+    },
+  ],
 });
 
 export default function RootLayout({
@@ -83,7 +112,7 @@ export default function RootLayout({
     <html lang="en">
       <head>
         <Script
-          id="schema-website"
+          id="schema-org"
           type="application/ld+json"
           strategy="afterInteractive"
         >
@@ -94,8 +123,9 @@ export default function RootLayout({
         <GTMNoScript />
         <GoogleTagManager />
         <Header />
-        <main>{children}</main>
+        <main className="pb-16 md:pb-0">{children}</main>
         <Footer />
+        <MobileUrgencyBar />
       </body>
     </html>
   );
