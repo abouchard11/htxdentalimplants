@@ -94,7 +94,7 @@ const schemaMarkup = JSON.stringify({
       },
       contactPoint: {
         "@type": "ContactPoint",
-        telephone: "+1-713-555-0000",
+        telephone: "+1-346-752-6836",
         contactType: "customer service",
         areaServed: "Houston, TX",
         availableLanguage: ["English", "Spanish"],

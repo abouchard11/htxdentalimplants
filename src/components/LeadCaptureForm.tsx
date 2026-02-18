@@ -137,7 +137,7 @@ export default function LeadCaptureForm({
           required
           value={phone}
           onChange={(e) => setPhone(e.target.value)}
-          placeholder="(713) 555-0000"
+          placeholder="(346) 752-6836"
           className="w-full rounded-lg border border-border px-3 py-2.5 text-sm text-secondary bg-white placeholder:text-gray-400 focus:border-primary focus:ring-1 focus:ring-primary outline-none"
         />
       </div>

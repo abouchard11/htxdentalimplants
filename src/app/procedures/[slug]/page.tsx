@@ -259,7 +259,7 @@ export default async function ProcedurePage({
                   Find a Specialist
                 </Link>
                 <a
-                  href="tel:+17135550000"
+                  href="tel:+13467526836"
                   className="mt-2 flex items-center justify-center gap-2 rounded-lg border border-white/30 px-4 py-2.5 text-sm font-semibold text-white hover:bg-white/10 transition-colors"
                 >
                   <Phone className="h-4 w-4" />

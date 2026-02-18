@@ -151,7 +151,7 @@ export default async function ZipCodePage({
               <ArrowRight className="h-4 w-4" />
             </Link>
             <a
-              href="tel:+17135550000"
+              href="tel:+13467526836"
               className="inline-flex items-center gap-2 rounded-lg bg-white/10 px-5 py-2.5 text-sm font-medium text-white hover:bg-white/20 transition-colors"
             >
               <Phone className="h-4 w-4" />
