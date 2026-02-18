@@ -7,6 +7,7 @@ import Footer from "@/components/Footer";
 import MobileUrgencyBar from "@/components/MobileUrgencyBar";
 import { GoogleTagManager, GTMNoScript } from "@/components/Analytics";
 import { Analytics } from "@vercel/analytics/next";
+import ChatBot from "@/components/ChatBot";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -127,6 +128,7 @@ export default function RootLayout({
         <main className="pb-16 md:pb-0">{children}</main>
         <Footer />
         <MobileUrgencyBar />
+        <ChatBot />
         <Analytics />
       </body>
     </html>
