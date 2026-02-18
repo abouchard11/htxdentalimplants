@@ -237,7 +237,7 @@ export default function CostCalculator() {
                 Get a Precise Quote from Top Dentists
               </Link>
               <a
-                href="tel:+13467526836"
+                href="tel:+13467526880"
                 className="flex items-center justify-center gap-2 rounded-lg border border-border px-4 py-3 text-sm font-semibold text-secondary hover:bg-muted transition-colors"
               >
                 <Phone className="h-4 w-4" />

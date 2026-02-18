@@ -112,7 +112,7 @@ export default function ForDentistsPage() {
                 <ArrowRight className="h-5 w-5" />
               </a>
               <a
-                href="tel:+13467526836"
+                href="tel:+13467526880"
                 className="inline-flex items-center justify-center gap-2 rounded-lg bg-white/10 px-6 py-3.5 text-base font-semibold text-white hover:bg-white/20 transition-colors border border-white/20"
               >
                 <Phone className="h-5 w-5" />
@@ -256,8 +256,8 @@ export default function ForDentistsPage() {
 
           <p className="mt-6 text-center text-sm text-gray-500">
             Questions? Call us at{" "}
-            <a href="tel:+13467526836" className="text-primary font-medium">
-              (346) 752-6836
+            <a href="tel:+13467526880" className="text-primary font-medium">
+              (346) 752-6880
             </a>{" "}
             or email{" "}
             <a href="mailto:dentists@htxdentalimplants.com" className="text-primary font-medium">
